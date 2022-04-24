@@ -2,12 +2,10 @@ package com.example.mvc.controller.post
 
 import com.example.mvc.model.http.UserRequest
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.servlet.function.RequestPredicates.POST
-
 
 @RestController
 @RequestMapping("/api")
-class PostApiController {
+class PutApiController {
 
     @PostMapping("/post-mapping")
     fun postMapping(): String {
@@ -16,7 +14,7 @@ class PostApiController {
 
     @RequestMapping(method = [RequestMethod.POST], path = ["/request-mapping"])
     fun requestMapping(): String {
-        return "request-mapping"
+        return "request-mapping - post method"
     }
 
     @PostMapping("/post-mapping/object")

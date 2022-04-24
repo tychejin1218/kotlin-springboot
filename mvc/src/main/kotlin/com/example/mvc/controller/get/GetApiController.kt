@@ -14,7 +14,7 @@ class GetApiController {
 
     @RequestMapping(method = [RequestMethod.GET], path = ["/request-mapping"])
     fun requestMapping(): String {
-        return "request-mapping"
+        return "request-mapping - get method"
     }
 
     @GetMapping("/get-mapping/path-variable-01/{name}")
