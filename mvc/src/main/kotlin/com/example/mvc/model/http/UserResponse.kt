@@ -8,8 +8,10 @@ data class UserResponse(
     var result: Result? = null,
     var description: String? = null,
 
-    @JsonProperty("user")
-    var userRequest: List<UserRequest>? = null
+    /*@JsonProperty("user")
+    var userRequest: List<UserRequest>? = null*/
+
+    var user: List<UserRequest>? = null
 )
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy::class)
