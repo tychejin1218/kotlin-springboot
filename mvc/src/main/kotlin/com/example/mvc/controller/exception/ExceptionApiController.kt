@@ -25,12 +25,13 @@ import javax.validation.constraints.Size
 class ExceptionApiController {
 
     @GetMapping("/hello")
-    fun hello() {
+    fun hello(): String {
         val list = mutableListOf<String>()
-        val temp = list[0]
+        //val temp = list[0]
         /*if (true) {
             throw RuntimeException("강제 exception 발생")
         }*/
+        return "hello"
     }
 
     @GetMapping("")
@@ -43,7 +44,7 @@ class ExceptionApiController {
     ): String {
         println(name)
         print(age)
-        return name + "" + age
+        return name + " " + age
     }
 
     @PostMapping("")
