@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 //@RestControllerAdvice(basePackageClasses = [PutApiController::class])
-@RestControllerAdvice
+//@RestControllerAdvice
 class GlobalControllerAdvice {
 
     @ExceptionHandler(value = [RuntimeException::class])
