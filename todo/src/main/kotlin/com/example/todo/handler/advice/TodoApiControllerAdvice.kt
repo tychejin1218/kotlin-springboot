@@ -1,0 +1,51 @@
+package com.example.todo.handler.advice
+
+import com.example.todo.controller.api.todo.TodoApiController
+import com.example.todo.model.http.ErrorResponse
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.validation.FieldError
+import org.springframework.validation.ObjectError
+import org.springframework.web.bind.MethodArgumentNotValidException
+import org.springframework.web.bind.annotation.ControllerAdvice
+import org.springframework.web.bind.annotation.ExceptionHandler
+import java.time.LocalDateTime
+import javax.servlet.http.HttpServletRequest
+
+@ControllerAdvice(basePackageClasses = [TodoApiController::class])
+class TodoApiControllerAdvice {
+
+  @ExceptionHandler(value = [RuntimeException::class])
+  fun exception(e: RuntimeException): String {
+    return "Server Error"
+  }
+
+  @ExceptionHandler(MethodArgumentNotValidException::class)
+  fun MethodArgumentNotValidException(
+    e: MethodArgumentNotValidException,
+    request: HttpServletRequest
+  ) {
+
+    val errors = mutableListOf<com.example.todo.model.http.Error>()
+
+    e.bindingResult.allErrors.forEach { errorObject ->
+      com.example.todo.model.http.Error().apply {
+        this.field = (errorObject as FieldError).field
+        this.message = errorObject.defaultMessage
+        this.value = errorObject.rejectedValue
+      }.apply {
+        errors.add(this)
+      }
+    }
+
+    val errorResponse = ErrorResponse().apply {
+      this.resultCode = "FAIL"
+      this.httpStatus = HttpStatus.BAD_REQUEST.value().toString()
+      this.httpMethod = request.method
+      this.message = ""
+      this.path = request.requestURI.toString()
+      this.timestamp = LocalDateTime.now()
+      this.errors = errors
+    }
+  }
+}
