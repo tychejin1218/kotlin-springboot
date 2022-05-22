@@ -2,12 +2,15 @@ package com.example.todo.controller.api.todo
 
 import com.example.todo.model.http.TodoDto
 import com.example.todo.service.TodoService
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
+@Tag(name = "일정관리", description = "일정관리 API")
 @RestController
 @RequestMapping("/api/todo")
 class TodoApiController(
@@ -15,6 +18,7 @@ class TodoApiController(
 ) {
 
   // R
+  @Operation(summary = "일정확인", description = "일정확인 API")
   @GetMapping(path = [""])
   fun read(@RequestParam(required = false) index: Int?): ResponseEntity<Any?> {
     return index?.let {
@@ -49,7 +53,7 @@ class TodoApiController(
   // D
   @DeleteMapping(path = ["/{index}"])
   fun delete(@PathVariable(name = "index") _index: Int): ResponseEntity<Any> {
-    if(!todoService.delete(_index)){
+    if (!todoService.delete(_index)) {
       return ResponseEntity.status(500).build()
     }
     return ResponseEntity.ok().build()
