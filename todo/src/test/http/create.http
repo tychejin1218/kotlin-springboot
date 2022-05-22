@@ -1,0 +1,8 @@
+POST http://localhost:9090/api/todo
+Content-Type: application/json
+
+{
+  "title": "테스트 일정",
+  "description": "테스트",
+  "schedule": "2022-05-22 17:30:00"
+}
